@@ -1,0 +1,5 @@
+# Dépendance Core (en dev local : pip install -e ../ArreraNeuronNetwork)
+ann-core @ git+https://github.com/ANN-Framework/Arrera-Neuron-Network-Core.git@version4.0
+customtkinter
+arrera-tk
+pillow
