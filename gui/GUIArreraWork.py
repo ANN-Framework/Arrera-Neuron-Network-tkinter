@@ -3,6 +3,8 @@ from arrera_tk import *
 from tkinter import END
 from gui.guibase import GuiBase,gestionnaire
 from gui.GUITaskProject import GUITaskProject
+from tkinter.messagebox import showerror, showinfo, showwarning
+from tkinter import filedialog
 
 class GUIWork(GuiBase):
     def __init__(self,gestionnaire:gestionnaire):
@@ -451,7 +453,17 @@ class GUIWork(GuiBase):
         btn_open.grid(row=0, column=0)
 
     def __open_word(self):
-        if self.__fnc_work.openWord():
+        showinfo("Work", "Choisissez votre fichier word")
+        emplacementFile = filedialog.askopenfilename(
+            defaultextension='.docx',
+            filetypes=[('Tous les fichiers', '*.*'),
+                       ('Fichiers Word', '*.docx'),
+                       ("Texte OpenDocument", "*.odt")])
+        if not emplacementFile:
+            showwarning("Work", "Aucun fichier sélectionné")
+            return
+        if self.__fnc_work.openWordDirectly(emplacementFile):
+            showinfo("Work", "Word ouvert")
             self.__view_word_open()
             self.__update_etat()
 
@@ -576,7 +588,15 @@ class GUIWork(GuiBase):
         btn_open.grid(row=0, column=0)
 
     def __open_tableur(self):
-        if self.__fnc_work.openTableur():
+        showinfo("Work", "Choisissez votre fichier excel")
+        emplacementFile = filedialog.askopenfilename(
+            defaultextension='.xlsx',
+            filetypes=[("Fichiers Excel", "*.xlsx")])
+        if not emplacementFile:
+            showwarning("Work", "Aucun fichier sélectionné")
+            return
+        if self.__fnc_work.openTableurDirectly(emplacementFile):
+            showinfo("Work", "Excel ouvert")
             self.__view_tableur_open()
             self.__update_etat()
 

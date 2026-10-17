@@ -1,4 +1,5 @@
 from tkinter.messagebox import showerror, askyesno
+from gui.TkinterGuiManager import TkinterGuiManager
 from librairy.dectectionOS import OS
 from arrera_tk import *
 from config.confNeuron import confNeuron
@@ -223,10 +224,11 @@ class GUIOpale:
         else:
             tableur.configure(fg_color="red")
 
-
     def __startAssistantBrain(self):
-        try :
+        try:
             self.__assistantBrain = ABrain(config=self.__config)
+            gest = self.__assistantBrain.getGestionnaire()
+            gest.set_gui_manager(TkinterGuiManager(gest))
             return True
         except Exception as e:
             print(f"Erreur lors du démarrage de l'assistant Brain : {e}")

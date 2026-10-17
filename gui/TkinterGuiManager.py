@@ -210,6 +210,40 @@ class TkinterGuiManager(IGestGui):
                 - "gui": Args ["nom_gui", ""]. nom_gui: arrera_download.
                 """
 
+        if conf.etatCodehelp == 1:
+            from gui.codehelp.CHGithub import CHGithub
+            from gui.codehelp.CHLibrairy import CHLibrairy
+            from gui.codehelp.CHOrgraVarriable import CHOrgraVarriable
+            from gui.codehelp.CCHcolorSelector import CCHcolorSelector
+
+            self.__guiColorSelector = CCHcolorSelector(self.__gest)
+            self.__guiGithub = CHGithub(self.__gest)
+            self.__guiLibrairy = CHLibrairy(self.__gest)
+            self.__guiOrgaVar = CHOrgraVarriable(self.__gest)
+
+            self.__gui_actions.update({
+                "GUIColorSelector": lambda: self.__generic_action(
+                    self.__guiColorSelector.active,
+                    lambda: self.__gestIA.generate_final_response("",
+                                                                  "Annonce à l'utilisateur que le sélecteur de couleurs est ouvert.")
+                ),
+                "GUIGithubGestion": lambda: self.__generic_action(
+                    self.__guiGithub.active,
+                    lambda: self.__gestIA.generate_final_response("",
+                                                                  "Annonce à l'utilisateur que le gestionnaire GitHub est ouvert.")
+                ),
+                "GUILibrairy": lambda: self.__generic_action(
+                    self.__guiLibrairy.active,
+                    lambda: self.__gestIA.generate_final_response("",
+                                                                  "Annonce à l'utilisateur que la librairie CodeHelp est ouverte.")
+                ),
+                "GUIOrgaVar": lambda: self.__generic_action(
+                    self.__guiOrgaVar.active,
+                    lambda: self.__gestIA.generate_final_response("",
+                                                                  "Annonce à l'utilisateur que l'organisateur de variables est ouvert.")
+                ),
+            })
+
     def is_gui_available(self) -> bool:
         return True
 
@@ -260,11 +294,13 @@ class TkinterGuiManager(IGestGui):
         if self.__parms != "" and self.__gest.getGestFNC().getFNCOrthographe().getToolLaunched():
             self.__guiOrthographe.active()
             self.__guiOrthographe.setTexte(self.__parms)
-            self.__textOut = self.__gest.getLanguageObjet().getPhraseService("3")
+            self.__textOut = self.__gestIA.generate_final_response("",
+                                                                   "Annonce à l'utilisateur que le correcteur orthographique est ouvert avec son texte.")
             self.__valOut = 5
             return True
         else:
-            self.__textOut = self.__gest.getLanguageObjet().getPhraseService("4")
+            self.__textOut = self.__gestIA.generate_final_response("",
+                                                                   "Informe l'utilisateur qu'il est impossible d'ouvrir le correcteur orthographique.")
             self.__valOut = 1
             return False
 
@@ -273,28 +309,6 @@ class TkinterGuiManager(IGestGui):
         self.__textOut = self.__parms[1]
         self.__valOut = 5
         return True
-
-    def __guiManageTableur(self, param: int):
-        try:
-            out = self.__guiWork.active_manage_tableur()
-        except Exception:
-            self.__textOut = self.__gest.getLanguageObjet().getPhraseArreraWorkTableur("8")
-            self.__valOut = 1
-            return False
-
-        if 1 <= param <= 7:
-            if out:
-                self.__textOut = self.__gest.getLanguageObjet().getPhraseArreraWorkTableur(str(5 + param * 2))
-                self.__valOut = 5
-                return True
-            else:
-                self.__textOut = self.__gest.getLanguageObjet().getPhraseArreraWorkTableur(str(6 + param * 2))
-                self.__valOut = 1
-                return False
-        else:
-            self.__textOut = self.__gest.getLanguageObjet().getPhraseArreraWorkTableur("8")
-            self.__valOut = 1
-            return False
 
     def textOut(self) -> str:
         return self.__textOut
