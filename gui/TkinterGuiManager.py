@@ -213,13 +213,13 @@ class TkinterGuiManager(IGestGui):
         if conf.etatCodehelp == 1:
             from gui.codehelp.CHGithub import CHGithub
             from gui.codehelp.CHLibrairy import CHLibrairy
-            from gui.codehelp.CHOrgraVarriable import CHOrgraVarriable
+            from gui.codehelp.CHGitGestion import CHGitGestion
             from gui.codehelp.CCHcolorSelector import CCHcolorSelector
 
             self.__guiColorSelector = CCHcolorSelector(self.__gest)
             self.__guiGithub = CHGithub(self.__gest)
             self.__guiLibrairy = CHLibrairy(self.__gest)
-            self.__guiOrgaVar = CHOrgraVarriable(self.__gest)
+            self.__guiGitGestion = CHGitGestion(self.__gest)
 
             self.__gui_actions.update({
                 "GUIColorSelector": lambda: self.__generic_action(
@@ -237,10 +237,10 @@ class TkinterGuiManager(IGestGui):
                     lambda: self.__gestIA.generate_final_response("",
                                                                   "Annonce à l'utilisateur que la librairie CodeHelp est ouverte.")
                 ),
-                "GUIOrgaVar": lambda: self.__generic_action(
-                    self.__guiOrgaVar.active,
+                "GUIGitGestion": lambda: self.__generic_action(
+                    self.__guiGitGestion.active,
                     lambda: self.__gestIA.generate_final_response("",
-                                                                  "Annonce à l'utilisateur que l'organisateur de variables est ouvert.")
+                                                                  "Annonce à l'utilisateur que l'interface de gestion Git est ouverte.")
                 ),
             })
 

@@ -65,7 +65,7 @@ gui_to_test = {
     "Color Select" : lambda : (fnc_codehelp.setGUICodeHelp("GUIColorSelector"),fnc_codehelp.launchGui()),
     "Github" : lambda : (fnc_codehelp.setGUICodeHelp("GUIGithubGestion"),fnc_codehelp.launchGui()),
     "Librairy" : lambda : (fnc_codehelp.setGUICodeHelp("GUILibrairy"),fnc_codehelp.launchGui()),
-    "Orga Var" : lambda : (fnc_codehelp.setGUICodeHelp("GUIOrgaVar"),fnc_codehelp.launchGui()),
+    "Git Gestion" : lambda : (fnc_codehelp.setGUICodeHelp("GUIGitGestion"),fnc_codehelp.launchGui()),
     "Morning Brief": gest_gui.active_morning_brief,
     "Afternoon Brief": gest_gui.active_afternoon_brief,
     "Evening Brief": gest_gui.active_evening_brief,
@@ -80,8 +80,8 @@ gui_to_test = {
 
 # Créer un bouton pour chaque interface
 # Organiser les boutons sur une grille pour une meilleure lisibilité
-rows = 4
 cols = 3
+rows = (len(gui_to_test) + cols - 1) // cols
 i = 0
 for name, action in gui_to_test.items():
     row = i // cols
