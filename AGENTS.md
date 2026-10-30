@@ -41,7 +41,7 @@ La liaison avec le moteur `ann-core` repose sur l'injection de dépendances :
   - `TkinterGuiManager.py` : Pont entre `ann-core` et les fenêtres de `ann_tkinter/gui`.
   - `GUI*.py` & `ann_tkinter/gui` : Vues spécialisées pour chaque outil de l'assistant.
   - *Note sur les dialogues de fichiers* : C'est la couche `ann_tkinter/gui` (ex. `ann_tkinter/gui`, `src/GUIOpale.py`) qui ouvre `filedialog.askopenfilename` / `askdirectory` et transmet le chemin sélectionné aux méthodes de `ann-core` (`openWordDirectly`, `openTableurDirectly`, `setWorkFolder`, `setDownloadFolderDur`, etc.).
-- **`ann_tkinter/asset`** : Contient toutes les icônes (`.png`), sons (`.mp3`) et fichiers de thèmes (`ann_tkinter/asset`) nécessaires à l'interface.
+- **`asset/`** : Contient toutes les icônes (`.png`), sons (`.mp3`) et fichiers de thèmes nécessaires à l'interface, configurable par assistant via `confTkinter(asset=..., icon=...)`.
 - **`test-gui.py`** : Harnais de test permettant de lancer et vérifier individuellement chaque fenêtre de `ann_tkinter/gui` via `TkinterGuiManager`.
 
 ---
