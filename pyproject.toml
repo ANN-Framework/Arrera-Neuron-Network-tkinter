@@ -22,12 +22,3 @@ dependencies = [
 where = ["."]
 include = ["ann_tkinter*"]
 exclude = ["src*", "test*"]
-
-[tool.setuptools.package-data]
-"ann_tkinter" = [
-    "asset/*.png",
-    "asset/*.ico",
-    "asset/**/*.png",
-    "asset/**/*.json",
-    "asset/**/*.mp3"
-]

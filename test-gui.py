@@ -1,14 +1,11 @@
 from arrera_tk import aFrame,aTk,aButton
 from gestionnaire.gestion import gestionnaire
-from ann_tkinter import TkinterGuiManager
-from ann_tkinter.utils import get_asset_dir, get_asset_file
+from ann_tkinter import TkinterGuiManager,confTkinter
 from config.confNeuron import confNeuron
 
 # Configuration de l'assistant
 conf = confNeuron(name="Opale",
                   lang="fr",
-                  icon=get_asset_file("icon.png"),
-                  asset=get_asset_dir(),
                   bute="developper un algo de ChatBot qui sera inclut dans SIX et Ryley",
                   createur="Pauchet Baptiste",
                   listFonction=["ouvrir une application", "aider sur les recherches de internet", "donner la meteo",
@@ -28,10 +25,12 @@ conf = confNeuron(name="Opale",
                   fichierKeyword="keyword/",
                   voiceAssistant=True)
 
+conf_gui = confTkinter(asset="asset/",icon="asset/icon.png")
+
 # Initialisation du gestionnaire principal
 gest = gestionnaire(conf)
 # Enregistrement du gestionnaire graphique Tkinter
-gest.set_gui_manager(TkinterGuiManager(gest))
+gest.set_gui_manager(TkinterGuiManager(gest,conf_gui))
 # Récupération du gestionnaire de GUI
 gest_gui = gest.getGestGUI()
 

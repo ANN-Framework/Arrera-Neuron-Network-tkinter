@@ -1,6 +1,5 @@
 from tkinter.messagebox import showerror, askyesno
-from ann_tkinter.gui.TkinterGuiManager import TkinterGuiManager
-from ann_tkinter.utils import get_asset_dir, get_asset_file
+from ann_tkinter.gui.TkinterGuiManager import TkinterGuiManager,confTkinter
 from librairy.dectectionOS import OS
 from arrera_tk import *
 from config.confNeuron import confNeuron
@@ -23,7 +22,7 @@ class GUIOpale:
 
     def __guiConf(self):
         screen = aTk(title = "Opale",resizable=False,
-                     icon=get_asset_file("icon.png"),width=500,height=500)
+                     icon="asset/icon.png",width=500,height=500)
 
         frameNeuron = aFrame(screen,width=500,height=225,border_width=1)
         frameLangue = aFrame(screen,width=500,height=225,border_width=1)
@@ -110,8 +109,6 @@ class GUIOpale:
 
             self.__config = confNeuron(name="Opale",
                                        lang="fr",
-                                       asset=get_asset_dir(),
-                                       icon=get_asset_file("icon.png"),
                                        bute="developper un algo de ChatBot qui sera inclut dans SIX et Ryley",
                                        createur="Pauchet Baptiste",
                                        listFonction=["ouvrir une application", "aider sur les recherches de internet", "donner la meteo",
@@ -131,6 +128,10 @@ class GUIOpale:
                                        fichierLangue=str(self.__emplacementLangue),
                                        fichierKeyword="keyword/",
                                         voiceAssistant=True)
+            self.__conf_tk = confTkinter(
+                asset="asset/",
+                icon="asset/icon.png"
+            )
             return True
         except Exception as e:
             print(f"Erreur lors de la création de la configuration : {e}")
@@ -155,9 +156,8 @@ class GUIOpale:
 
     def __GUIAssistant(self, screen:aTk = None):
         if screen is None:
-            screen = aTk(theme_file=get_asset_file("theme/theme_default.json"),
-                         title="Opale", resizable=False,
-                         icon=get_asset_file("icon.png"), width=500, height=500)
+            screen = aTk(title="Opale", resizable=False,
+                         icon=self.__conf_tk.icon, width=500, height=500)
         else:
             screen.title("Opale Assistant")
             screen.geometry("500x500")
@@ -229,7 +229,7 @@ class GUIOpale:
         try:
             self.__assistantBrain = ABrain(config=self.__config)
             gest = self.__assistantBrain.getGestionnaire()
-            gest.set_gui_manager(TkinterGuiManager(gest))
+            gest.set_gui_manager(TkinterGuiManager(gest,self.__conf_tk))
             return True
         except Exception as e:
             print(f"Erreur lors du démarrage de l'assistant Brain : {e}")

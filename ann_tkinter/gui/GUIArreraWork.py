@@ -9,7 +9,7 @@ class GUIWork(GuiBase):
     def __init__(self,gestionnaire:gestionnaire):
         super().__init__(gestionnaire,"Work")
         # Attributs
-        self.__emplacementAsset = self._gestionnaire.getConfigFile().asset + "work/"
+        self.__emplacementAsset = self._conf_tk.asset + "work/"
         self.__fnc_work = gestionnaire.getGestFNC().getFNCWork()
         self.__guiTaskProject = None
         self.__wordOpen = False

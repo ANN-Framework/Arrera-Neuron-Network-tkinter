@@ -1,65 +1,11 @@
+import os
 from arrera_tk import aLabelImage
 
 from ann_tkinter.gui.guibase import *
 import threading as th
 import datetime
 import webbrowser
-
-# Design de la page
-
-"""
-# Morning Brief et Afternoon Brief
-+-----------------------------------------------------------------------------+
-| HH:MM - DATE                                    NAME_ASSISTANT : TYPE BRIEF |
-+-------------------------+---------------------------------------------------+
-| BLOC 1                  | BLOC 2                                            |
-|                         |                                                   |
-|                         |                                                   |
-|                         |                                                   |
-|                         |                                                   |
-| ----------------------- |                                                   |
-| BLOC 3                  |                                                   |
-|                         |                                                   |
-|                         |                                                   |
-|                         |                                                   |
-|                         |                                                   |
-|                         |                                                   |
-+-------------------------+---------------------------------------------------+
-
-## Morning Brief 
-
-- BLOC 1: Meteo prevu dans le journer
-- BLOC 2: Tache du jour 
-- BLOC 3: Actu 
-
-## Afternoon Brief
-
-- BLOC 1: Meteo actuel et prevu dans l'apres midi
-- BLOC 2: Tache 
-- BLOC 3: Actu  
-
-# Evening brief
-
-+-----------------------------------------------------------------------------+
-| HH:MM - DATE                                    NAME_ASSISTANT : TYPE BRIEF |
-+------------------------------------+----------------------------------------+
-| Bloc 1                             | bloc 2                                 |
-|                                    |                                        |
-|                                    |                                        |
-|                                    |                                        |
-|                                    |                                        |
-|                                    |                                        |
-|                                    |                                        |
-|                                    |                                        |
-|                                    |                                        |
-|                                    |                                        |
-|                                    |                                        |
-+------------------------------------+----------------------------------------+
-
-- BLOC 1 : Meteo
-- BLOC 2 : Actu
-
-"""
+from arrera_tk import *
 
 class guiBrief(GuiBase):
     def __init__(self,gestionnaire:gestionnaire,name:str):
@@ -280,8 +226,17 @@ class guiBrief(GuiBase):
                     meteo_info = data[key]
                     if meteo_info["ok"]:
                         try:
+                            icon_code = meteo_info.get("icon", "")
+                            # Résolution du fichier météo dans le dossier d'assets de l'assistant
+                            if icon_code.endswith(".png") and os.path.exists(icon_code):
+                                icon_path = icon_code
+                            else:
+                                icon_path = os.path.join(self._conf_tk.asset, "meteo", f"{icon_code}.png")
+                                if not os.path.exists(icon_path):
+                                    icon_path = os.path.join(self._conf_tk.asset, "meteo", "meteo-error.png")
+
                             l = aLabelImage(w_f, police_size=15,
-                                        path_img_light=meteo_info["icon"], height_img=50, widht_img=50,
+                                        path_img_light=icon_path, height_img=50, widht_img=50,
                                         text=f"{meteo_info['description']} avec {meteo_info['temp']} °C a {meteo_info['town']}")
                         except KeyError:
                             l = aLabel(w_f, police_size=25, text="Imposible d'afficher la meteo")

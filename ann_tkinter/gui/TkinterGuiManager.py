@@ -1,5 +1,7 @@
 from typing import Callable
 from gestionnaire.IGestGui import IGestGui
+from ann_tkinter.confTkinter import confTkinter
+from ann_tkinter.gui.guibase import GuiBase
 
 
 class TkinterGuiManager(IGestGui):
@@ -7,25 +9,20 @@ class TkinterGuiManager(IGestGui):
     Gestionnaire GUI Tkinter concret pour Arrera.
     Gère le chargement et le déclenchement des interfaces graphiques Tkinter.
     """
-    def __init__(self, gest):
+    def __init__(self, gest,conf_tk : confTkinter ):
         self.__name_gui = None
         self.__gest = gest
+        self.__conf_tk = conf_tk
         self.__parms = None
         self.__textOut = None
         self.__prompt = ""
         self.__valOut = 0
 
+        GuiBase.set_global_conf(self.__conf_tk)
+
         self.__gestIA = gest.getGestIA()
 
-        import os
-        from ann_tkinter.utils import get_asset_dir, get_asset_file
-
         conf = gest.getConfigFile()
-        # Si le chemin d'assets configuré n'existe pas localement, basculer sur les assets embarqués dans le paquet
-        if not getattr(conf, "asset", None) or not os.path.exists(conf.asset):
-            conf.asset = get_asset_dir()
-        if not getattr(conf, "icon", None) or not os.path.exists(conf.icon):
-            conf.icon = get_asset_file("icon.png")
 
         from ann_tkinter.gui.GUIHelp import GUIHelp
         self.__guiHelp = GUIHelp(self.__gest)

@@ -8,7 +8,7 @@ class GUIAgenda(GuiBase):
     def __init__(self, gest: gestionnaire):
         super().__init__(gest, "Agenda")
         self.__fncAgenda = gest.getGestFNC().getFNCCalendar()
-        self.__assetPath = self._gestionnaire.getConfigFile().asset+"calendar/"
+        self.__assetPath = self._conf_tk.asset+"calendar/"
         self.__dateSelected = None
 
     def _mainframe(self):

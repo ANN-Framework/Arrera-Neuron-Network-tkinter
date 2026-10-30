@@ -25,9 +25,9 @@ class GUIHelp(GuiBase):
         labelFrame.grid_columnconfigure(0, weight=1)
 
         # IMG
-        imgLogo = aImage(path_dark=self._gestionnaire.getConfigFile().icon,
-                                          path_light=self._gestionnaire.getConfigFile().icon,
-                                          width=50,height=50)
+        imgLogo = aImage(path_dark=self._conf_tk.icon,
+                         path_light=self._conf_tk.icon,
+                         width=50,height=50)
         # Widgets
         logoLabel = aLabel(topFrame,image=imgLogo)
         self._titleLabel = aLabel(topFrame, text="", font=("Roboto", 30, "bold"))

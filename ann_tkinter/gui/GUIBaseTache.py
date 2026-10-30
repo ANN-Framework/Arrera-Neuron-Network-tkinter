@@ -3,6 +3,7 @@ from fnc.fonctionTache import fncArreraTache
 from ann_tkinter.gui.guibase import*
 import tkinter as tk
 import customtkinter as ctk
+from arrera_tk import *
 from datetime import datetime
 from functools import partial
 
@@ -10,7 +11,7 @@ class GUIBaseTache(GuiBase):
     def __init__(self, gestionnaire: gestionnaire,fncTask:fncArreraTache):
         super().__init__(gestionnaire,"Tache")
         self._fnctask = fncTask
-        self.__directoryAsset = self._gestionnaire.getConfigFile().asset+"tache/"
+        self.__directoryAsset = self._conf_tk.asset+"tache/"
         self._title = ""
 
     def _mainframe(self):

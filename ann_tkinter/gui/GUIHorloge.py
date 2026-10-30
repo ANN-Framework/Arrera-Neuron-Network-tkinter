@@ -5,7 +5,7 @@ class GUIHorloge(GuiBase):
     def __init__(self, gest: gestionnaire):
         super().__init__(gest, "Horloge")
         self.__fncHorloge = self._gestionnaire.getGestFNC().getFNCHorloge()
-        self.__assetDirectory = self._gestionnaire.getConfigFile().asset+"horloge/"
+        self.__assetDirectory = self._conf_tk.asset+"horloge/"
         self.__clockEnable = False
         self.__minuteurEnable = False
 
