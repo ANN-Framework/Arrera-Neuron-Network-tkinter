@@ -7,9 +7,10 @@ import datetime
 import webbrowser
 from arrera_tk import *
 
+
 class guiBrief(GuiBase):
-    def __init__(self,gestionnaire:gestionnaire,name:str):
-        super().__init__(gestionnaire,f"{gestionnaire.getName()} : {name}")
+    def __init__(self, gestionnaire: gestionnaire, name: str):
+        super().__init__(gestionnaire, f"{gestionnaire.getName()} : {name}")
         self.__readVar = ""
         self.__out_breef = None
         self.__thRead = th.Thread()
@@ -37,10 +38,10 @@ class guiBrief(GuiBase):
         top_frame.grid_columnconfigure(2, weight=1)
 
         # Widget Topframe
-        self.__label_date = aLabel(top_frame, text="HH:MM - JEUDI XX JUILLET XXXX",police_size=20)
-        self.__label_title = aLabel(top_frame, text="",police_size=20)
+        self.__label_date = aLabel(top_frame, text="HH:MM - JEUDI XX JUILLET XXXX", police_size=20)
+        self.__label_title = aLabel(top_frame, text="", police_size=20)
         self.__btn_read = aButton(top_frame, text="Lire")
-        
+
         self.__main_frame = aFrame(self._screen)
         self.__load_frame = aFrame(self._screen)
         load_label = aLabel(self.__load_frame, text="Chargement en cours...", police_size=25)
@@ -60,16 +61,15 @@ class guiBrief(GuiBase):
 
         date_actuelle = datetime.datetime.now()
 
-        nom_jour = jours[date_actuelle.weekday()]  # .weekday() renvoie 0 pour Lundi, 6 pour Dimanche
-        num_jour = date_actuelle.strftime("%d")  # Jour sur 2 chiffres (ex: "24")
-        nom_mois = mois[date_actuelle.month - 1].upper()  # Mois en majuscules (ex: "JUILLET")
-        annee = date_actuelle.strftime("%Y")  # Année sur 4 chiffres (ex: "2026")
+        nom_jour = jours[date_actuelle.weekday()]
+        num_jour = date_actuelle.strftime("%d")
+        nom_mois = mois[date_actuelle.month - 1].upper()
+        annee = date_actuelle.strftime("%Y")
 
         date_formatee = f"{nom_jour} {num_jour} {nom_mois} {annee}"
-
         return date_formatee
 
-    def __set_title(self,title:str):
+    def __set_title(self, title: str):
         self.__label_title.configure(text=f"{self.__name}: {title}")
         self._screen.title(f"{self.__name}: {title}")
 
@@ -86,8 +86,9 @@ class guiBrief(GuiBase):
 
         self.__main_frame.grid_rowconfigure(0, weight=1)
         self.__main_frame.grid_rowconfigure(1, weight=1)
-        self.__main_frame.grid_columnconfigure(0, weight=1)
-        self.__main_frame.grid_columnconfigure(1, weight=2)
+        # 50% / 50% avec uniform
+        self.__main_frame.grid_columnconfigure(0, weight=1, uniform="col_brief")
+        self.__main_frame.grid_columnconfigure(1, weight=1, uniform="col_brief")
 
         weather = aFrame(self.__main_frame)
         tache = aFrame(self.__main_frame)
@@ -98,16 +99,14 @@ class guiBrief(GuiBase):
         actu.grid(row=0, column=1, rowspan=2, sticky="nsew", padx=5, pady=5)
         tache.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
 
-        self.__th_meteo,self.__th_task,self.__th_actuality = self.__fnc_brief.morning_brief()
+        self.__th_meteo, self.__th_task, self.__th_actuality = self.__fnc_brief.morning_brief()
 
         self.__load_frame.grid(row=1, column=0, sticky="nsew")
 
         self.__update_weather(weather, True)
         self.__update_actu(actu, True)
-        self.__update_task(tache,True)
+        self.__update_task(tache, True)
         self.__update_morning()
-
-
 
     def view_afternoon(self):
         self.active()
@@ -118,17 +117,18 @@ class guiBrief(GuiBase):
 
         self.__main_frame.grid_rowconfigure(0, weight=1)
         self.__main_frame.grid_rowconfigure(1, weight=1)
-        self.__main_frame.grid_columnconfigure(0, weight=2)
-        self.__main_frame.grid_columnconfigure(1, weight=1)
+        # 50% / 50% avec uniform
+        self.__main_frame.grid_columnconfigure(0, weight=1, uniform="col_brief")
+        self.__main_frame.grid_columnconfigure(1, weight=1, uniform="col_brief")
 
         weather = aFrame(self.__main_frame)
-        actu = aFrame(self.__main_frame)
         tache = aFrame(self.__main_frame)
+        actu = aFrame(self.__main_frame)
 
-        # Affichage Frame
+        # Affichage Frame aligné sur morning
         weather.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
-        tache.grid(row=0, column=1, rowspan=2, sticky="nsew", padx=5, pady=5)
-        actu.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
+        actu.grid(row=0, column=1, rowspan=2, sticky="nsew", padx=5, pady=5)
+        tache.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
 
         self.__th_meteo, self.__th_task, self.__th_actuality = self.__fnc_brief.afternoon_brief()
 
@@ -147,8 +147,9 @@ class guiBrief(GuiBase):
         self.__clear()
 
         self.__main_frame.grid_rowconfigure(0, weight=1)
-        self.__main_frame.grid_columnconfigure(0, weight=1)
-        self.__main_frame.grid_columnconfigure(1, weight=2)
+        # 50% / 50% avec uniform
+        self.__main_frame.grid_columnconfigure(0, weight=1, uniform="col_brief")
+        self.__main_frame.grid_columnconfigure(1, weight=1, uniform="col_brief")
 
         weather = aFrame(self.__main_frame)
         actu = aFrame(self.__main_frame)
@@ -157,7 +158,7 @@ class guiBrief(GuiBase):
         weather.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
         actu.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
 
-        self.__th_meteo,self.__th_actuality = self.__fnc_brief.evening_brief()
+        self.__th_meteo, self.__th_actuality = self.__fnc_brief.evening_brief()
 
         self.__load_frame.grid(row=1, column=0, sticky="nsew")
 
@@ -174,7 +175,7 @@ class guiBrief(GuiBase):
         if not self.__th_meteo.is_alive() and not self.__th_task.is_alive() and not self.__th_actuality.is_alive():
             self.__load_frame.grid_forget()
             self.__main_frame.grid(row=1, column=0, sticky="nsew")
-        else :
+        else:
             self._screen.after(100, self.__update_morning)
 
     def __update_evening_check(self):
@@ -189,12 +190,12 @@ class guiBrief(GuiBase):
         else:
             self._screen.after(100, self.__update_evening_check)
 
-    def __update_weather(self, w_f:aFrame, first:bool=False):
+    def __update_weather(self, w_f: aFrame, first: bool = False):
         if first:
             w_f.grid_rowconfigure(0, weight=1)
             w_f.grid_columnconfigure(0, weight=1)
-            l = aLabel(w_f,text="Chargement\nde la\nmeteo \nen cours ...")
-            l.grid(row=0,column=0,sticky="nsew")
+            l = aLabel(w_f, text="Chargement\nde la\nmeteo \nen cours ...")
+            l.grid(row=0, column=0, sticky="nsew")
 
         if self.__th_meteo.is_alive():
             try:
@@ -202,7 +203,7 @@ class guiBrief(GuiBase):
                     self._screen.after(100, self.__update_weather, w_f, False)
             except Exception:
                 pass
-        else :
+        else:
             for w in w_f.winfo_children():
                 w.grid_forget()
                 w.destroy()
@@ -210,24 +211,22 @@ class guiBrief(GuiBase):
             data = self.__fnc_brief.get_data_meteo()
 
             if data is not None:
-
                 t = aLabel(w_f, text="Meteo", police_size=30)
-
                 t.grid(row=0, column=0, padx=5, pady=5, sticky="nsew")
 
                 weather_key = list(data.keys())
 
-                for row in range(len(weather_key)+1):
+                for row in range(len(weather_key) + 1):
                     w_f.grid_rowconfigure(row, weight=1)
                 w_f.grid_columnconfigure(0, weight=1)
 
+                weather_labels = []
                 i = 1
                 for key in weather_key:
                     meteo_info = data[key]
                     if meteo_info["ok"]:
                         try:
                             icon_code = meteo_info.get("icon", "")
-                            # Résolution du fichier météo dans le dossier d'assets de l'assistant
                             if icon_code.endswith(".png") and os.path.exists(icon_code):
                                 icon_path = icon_code
                             else:
@@ -236,22 +235,36 @@ class guiBrief(GuiBase):
                                     icon_path = os.path.join(self._conf_tk.asset, "meteo", "meteo-error.png")
 
                             l = aLabelImage(w_f, police_size=15,
-                                        path_img_light=icon_path, height_img=50, widht_img=50,
-                                        text=f"{meteo_info['description']} avec {meteo_info['temp']} °C a {meteo_info['town']}")
+                                            path_img_light=icon_path, height_img=50, widht_img=50,
+                                            text=f"{meteo_info['description']} avec {meteo_info['temp']} °C a {meteo_info['town']}")
+                            if hasattr(l, "_aLabelImage__l_text"):
+                                weather_labels.append(l._aLabelImage__l_text)
                         except KeyError:
                             l = aLabel(w_f, police_size=25, text="Imposible d'afficher la meteo")
+                            weather_labels.append(l)
                     else:
                         l = aLabel(w_f, police_size=25, text="Imposible de recuperer la meteo")
+                        weather_labels.append(l)
 
                     l.grid(row=i, column=0, padx=5, pady=5, sticky="nsew")
                     i += 1
-            else :
+
+                def _on_weather_configure(event):
+                    new_wrap = max(100, event.width - 90)
+                    for lbl in weather_labels:
+                        try:
+                            lbl.configure(wraplength=new_wrap)
+                        except Exception:
+                            pass
+
+                w_f._canvas.bind("<Configure>", _on_weather_configure, add="+")
+            else:
                 w_f.grid_rowconfigure(0, weight=1)
                 w_f.grid_columnconfigure(0, weight=1)
-                l = aLabel(w_f, text="Un probleme est survenu",police_size=20)
+                l = aLabel(w_f, text="Un probleme est survenu", police_size=20)
                 l.grid(row=0, column=0, sticky="nsew")
 
-    def __update_actu(self, a_f:aFrame, first:bool=False):
+    def __update_actu(self, a_f: aFrame, first: bool = False):
         if first:
             a_f.grid_rowconfigure(0, weight=1)
             a_f.grid_columnconfigure(0, weight=1)
@@ -264,7 +277,7 @@ class guiBrief(GuiBase):
                     self._screen.after(100, self.__update_actu, a_f, False)
             except Exception:
                 pass
-        else :
+        else:
             for w in a_f.winfo_children():
                 w.grid_forget()
                 w.destroy()
@@ -286,32 +299,46 @@ class guiBrief(GuiBase):
 
                 scroll_f.grid_columnconfigure(0, weight=1)
                 scroll_f.grid_columnconfigure(1, weight=0)
-                
+
+                actu_labels = []
                 row_idx = 0
                 for c in cat:
-                    lbl_cat = aLabel(scroll_f, text=c,police_size=30)
+                    lbl_cat = aLabel(scroll_f, text=c, police_size=30)
                     lbl_cat.grid(row=row_idx, column=0, columnspan=2, sticky="w", pady=(10, 5))
                     row_idx += 1
-                    
+
                     for article in data[c]:
                         titre = article.get("titre", "Sans titre")
                         lien = article.get("lien", "")
-                        
-                        lbl_titre = aLabel(scroll_f, text=titre, police_size=18,justify="left",
-                                           wraplength=550)
+
+                        lbl_titre = aLabel(scroll_f, text=titre, police_size=18, justify="left",
+                                           wraplength=250)
                         lbl_titre.grid(row=row_idx, column=0, sticky="w", padx=5, pady=2)
-                        
+                        actu_labels.append(lbl_titre)
+
                         if lien:
-                            btn_lien = aButton(scroll_f, text="Ouvrir", command=lambda l=lien: webbrowser.open(l))
+                            btn_lien = aButton(scroll_f, text="Ouvrir", width=80,
+                                               command=lambda l=lien: webbrowser.open(l))
                             btn_lien.grid(row=row_idx, column=1, sticky="e", padx=5, pady=2)
-                        
+
                         row_idx += 1
-                        
+
                         separator = aFrame(scroll_f, height=2, fg_color="gray")
                         separator.grid(row=row_idx, column=0, columnspan=2, sticky="ew", padx=5, pady=5)
                         row_idx += 1
 
-    def __update_task(self, t_f:aFrame, first:bool=False):
+                # Mise à la ligne dynamique selon la largeur visible
+                def _on_actu_configure(event):
+                    new_wrap = max(100, event.width - 120)
+                    for lbl in actu_labels:
+                        try:
+                            lbl.configure(wraplength=new_wrap)
+                        except Exception:
+                            pass
+
+                scroll_f._parent_canvas.bind("<Configure>", _on_actu_configure, add="+")
+
+    def __update_task(self, t_f: aFrame, first: bool = False):
         if first:
             t_f.grid_rowconfigure(0, weight=1)
             t_f.grid_columnconfigure(0, weight=1)
@@ -347,33 +374,51 @@ class guiBrief(GuiBase):
                 scroll_f.grid(row=1, column=0, sticky="nsew")
                 scroll_f.grid_columnconfigure(0, weight=1)
 
+                task_labels = []
                 row_idx = 0
 
                 if today:
-                    lbl_today = aLabel(scroll_f, text="tache du jour", police_size=20
-                                       ,justify="left",wraplength=550)
+                    lbl_today = aLabel(scroll_f, text="tache du jour", police_size=20,
+                                       justify="left")
                     lbl_today.grid(row=row_idx, column=0, sticky="w", pady=(10, 5), padx=5)
+                    task_labels.append(lbl_today)
                     row_idx += 1
                     for t in today:
-                        lbl_t = aLabel(scroll_f, text=f"- {t}", police_size=15, justify="left", wraplength=400)
+                        lbl_t = aLabel(scroll_f, text=f"- {t}", police_size=15, justify="left", wraplength=300)
                         lbl_t.grid(row=row_idx, column=0, sticky="w", padx=15, pady=2)
+                        task_labels.append(lbl_t)
                         row_idx += 1
 
                 if all_tasks:
-                    lbl_all = aLabel(scroll_f, text="tout les tache", police_size=20
-                                     ,justify="left",wraplength=550)
+                    lbl_all = aLabel(scroll_f, text="tout les tache", police_size=20,
+                                     justify="left")
                     lbl_all.grid(row=row_idx, column=0, sticky="w", pady=(10, 5), padx=5)
+                    task_labels.append(lbl_all)
                     row_idx += 1
                     for t in all_tasks:
-                        lbl_t = aLabel(scroll_f, text=f"- {t}", police_size=15, justify="left", wraplength=400)
+                        lbl_t = aLabel(scroll_f, text=f"- {t}", police_size=15, justify="left", wraplength=300)
                         lbl_t.grid(row=row_idx, column=0, sticky="w", padx=15, pady=2)
+                        task_labels.append(lbl_t)
                         row_idx += 1
 
                 if projet:
-                    lbl_projet = aLabel(scroll_f, text="tache des projet", police_size=20)
+                    lbl_projet = aLabel(scroll_f, text="tache des projet", police_size=20, justify="left")
                     lbl_projet.grid(row=row_idx, column=0, sticky="w", pady=(10, 5), padx=5)
+                    task_labels.append(lbl_projet)
                     row_idx += 1
                     for t in projet:
-                        lbl_t = aLabel(scroll_f, text=f"- {t}", police_size=15, justify="left", wraplength=400)
+                        lbl_t = aLabel(scroll_f, text=f"- {t}", police_size=15, justify="left", wraplength=300)
                         lbl_t.grid(row=row_idx, column=0, sticky="w", padx=15, pady=2)
+                        task_labels.append(lbl_t)
                         row_idx += 1
+
+                # Mise à la ligne dynamique selon la largeur disponible
+                def _on_task_configure(event):
+                    new_wrap = max(100, event.width - 45)
+                    for lbl in task_labels:
+                        try:
+                            lbl.configure(wraplength=new_wrap)
+                        except Exception:
+                            pass
+
+                scroll_f._parent_canvas.bind("<Configure>", _on_task_configure, add="+")
