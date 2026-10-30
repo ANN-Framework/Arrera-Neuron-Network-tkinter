@@ -1,5 +1,6 @@
 from tkinter.messagebox import showerror, askyesno
-from gui.TkinterGuiManager import TkinterGuiManager
+from ann_tkinter.gui.TkinterGuiManager import TkinterGuiManager
+from ann_tkinter.utils import get_asset_dir, get_asset_file
 from librairy.dectectionOS import OS
 from arrera_tk import *
 from config.confNeuron import confNeuron
@@ -22,7 +23,7 @@ class GUIOpale:
 
     def __guiConf(self):
         screen = aTk(title = "Opale",resizable=False,
-                     icon="asset/icon.png",width=500,height=500)
+                     icon=get_asset_file("icon.png"),width=500,height=500)
 
         frameNeuron = aFrame(screen,width=500,height=225,border_width=1)
         frameLangue = aFrame(screen,width=500,height=225,border_width=1)
@@ -109,8 +110,8 @@ class GUIOpale:
 
             self.__config = confNeuron(name="Opale",
                                        lang="fr",
-                                       asset="asset/",
-                                       icon="asset/icon.png",
+                                       asset=get_asset_dir(),
+                                       icon=get_asset_file("icon.png"),
                                        bute="developper un algo de ChatBot qui sera inclut dans SIX et Ryley",
                                        createur="Pauchet Baptiste",
                                        listFonction=["ouvrir une application", "aider sur les recherches de internet", "donner la meteo",
@@ -154,9 +155,9 @@ class GUIOpale:
 
     def __GUIAssistant(self, screen:aTk = None):
         if screen is None:
-            screen = aTk(theme_file="asset/theme/theme_default.json",
+            screen = aTk(theme_file=get_asset_file("theme/theme_default.json"),
                          title="Opale", resizable=False,
-                         icon="asset/icon.png", width=500, height=500)
+                         icon=get_asset_file("icon.png"), width=500, height=500)
         else:
             screen.title("Opale Assistant")
             screen.geometry("500x500")
