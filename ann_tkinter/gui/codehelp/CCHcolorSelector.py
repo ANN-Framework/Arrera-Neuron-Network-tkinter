@@ -1,5 +1,5 @@
 from arrera_tk import *
-from gui.codehelp.CCHguiBase import*
+from ann_tkinter.gui.codehelp.CCHguiBase import*
 from tkinter import colorchooser
 
 class CCHcolorSelector(CCHguiBase):

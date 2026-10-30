@@ -1,6 +1,6 @@
 from arrera_tk import aLabelImage
 
-from gui.guibase import *
+from ann_tkinter.gui.guibase import *
 import threading as th
 import datetime
 import webbrowser

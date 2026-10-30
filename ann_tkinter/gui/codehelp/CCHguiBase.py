@@ -1,4 +1,5 @@
-from gui.guibase import GuiBase, gestionnaire,abstractmethod
+from ann_tkinter.gui.guibase import GuiBase, gestionnaire
+
 
 class CCHguiBase(GuiBase):
     def __init__(self,gestionnaire:gestionnaire,name:str):

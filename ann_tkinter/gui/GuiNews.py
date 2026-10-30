@@ -1,5 +1,5 @@
 from arrera_tk import *
-from gui.guibase import GuiBase,gestionnaire
+from ann_tkinter.gui.guibase import GuiBase,gestionnaire
 import threading as th
 import webbrowser
 

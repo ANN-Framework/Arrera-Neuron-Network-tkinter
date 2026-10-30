@@ -1,8 +1,7 @@
-from tkinter.messagebox import showerror, showinfo
 from arrera_tk import *
 from tkinter import END
-from gui.guibase import GuiBase,gestionnaire
-from gui.GUITaskProject import GUITaskProject
+from ann_tkinter.gui.guibase import GuiBase,gestionnaire
+from ann_tkinter.gui.GUITaskProject import GUITaskProject
 from tkinter.messagebox import showerror, showinfo, showwarning
 from tkinter import filedialog
 

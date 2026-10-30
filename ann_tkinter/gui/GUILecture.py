@@ -1,4 +1,4 @@
-from gui.guibase import GuiBase,gestionnaire
+from ann_tkinter.gui.guibase import GuiBase,gestionnaire
 from arrera_tk import *
 
 class GUILecture(GuiBase):

@@ -1,7 +1,7 @@
 from fnc.fonctionArreraDownload import *
 from tkinter.messagebox import showerror,showinfo
 import threading as th
-from gui.guibase import GuiBase,gestionnaire
+from ann_tkinter.gui.guibase import GuiBase,gestionnaire
 from arrera_tk import *
 
 

@@ -1,5 +1,5 @@
 import threading as th
-from gui.guibase import GuiBase,gestionnaire
+from ann_tkinter.gui.guibase import GuiBase,gestionnaire
 from tkinter.messagebox import showinfo
 from arrera_tk import *
 from tkinter import END

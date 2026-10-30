@@ -1,6 +1,6 @@
 import webbrowser as w
 from github import Github, BadCredentialsException
-from gui.codehelp.CCHguiBase import CCHguiBase,gestionnaire
+from ann_tkinter.gui.codehelp.CCHguiBase import CCHguiBase,gestionnaire
 from arrera_tk import *
 import threading as th
 

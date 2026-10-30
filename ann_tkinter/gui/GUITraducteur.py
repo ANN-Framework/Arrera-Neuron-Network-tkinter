@@ -1,6 +1,6 @@
 from tkinter import StringVar
 from arrera_tk import *
-from gui.guibase import GuiBase,gestionnaire
+from ann_tkinter.gui.guibase import GuiBase,gestionnaire
 
 class GuiTraducteur(GuiBase):
     def __init__(self, gestionnaire: gestionnaire):

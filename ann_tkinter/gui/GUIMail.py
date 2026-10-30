@@ -1,7 +1,7 @@
-from arrera_tk import aFrame, aButton, aLabel, aEntry, aText, aEntryLengend, aTextScrollable
+from arrera_tk import aFrame, aButton, aLabel, aEntry, aEntryLengend, aTextScrollable
 import threading as th
 import pyperclip
-from gui.guibase import GuiBase,gestionnaire
+from ann_tkinter.gui.guibase import GuiBase,gestionnaire
 
 class GUIMail(GuiBase) :
     def __init__(self,gestionnaire:gestionnaire):

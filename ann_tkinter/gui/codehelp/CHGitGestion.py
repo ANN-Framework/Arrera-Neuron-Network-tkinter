@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 from tkinter import StringVar, filedialog, messagebox
 from arrera_tk import aFrame, aLabel, aButton, aEntry, aText
-from gui.codehelp.CCHguiBase import CCHguiBase, gestionnaire
+from ann_tkinter.gui.codehelp.CCHguiBase import CCHguiBase, gestionnaire
 
 # Couleurs des boutons actifs
 COLOR_BTN_PRIMARY_FG = ("#6750A4", "#7E57C2")

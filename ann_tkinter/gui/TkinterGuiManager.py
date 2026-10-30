@@ -17,9 +17,17 @@ class TkinterGuiManager(IGestGui):
 
         self.__gestIA = gest.getGestIA()
 
-        conf = gest.getConfigFile()
+        import os
+        from ann_tkinter.utils import get_asset_dir, get_asset_file
 
-        from gui.GUIHelp import GUIHelp
+        conf = gest.getConfigFile()
+        # Si le chemin d'assets configuré n'existe pas localement, basculer sur les assets embarqués dans le paquet
+        if not getattr(conf, "asset", None) or not os.path.exists(conf.asset):
+            conf.asset = get_asset_dir()
+        if not getattr(conf, "icon", None) or not os.path.exists(conf.icon):
+            conf.icon = get_asset_file("icon.png")
+
+        from ann_tkinter.gui.GUIHelp import GUIHelp
         self.__guiHelp = GUIHelp(self.__gest)
 
         self.__guiAgenda = None
@@ -38,9 +46,9 @@ class TkinterGuiManager(IGestGui):
         self.__gui_actions: dict[str, Callable[[], bool]] = {"aide": self.__action_aide}
 
         if conf.etatTime == 1:
-            from gui.GUIAgenda import GUIAgenda  # TIME
-            from gui.GUIHorloge import GUIHorloge  # TIME
-            from gui.GUITache import GUITache  # TIME
+            from ann_tkinter.gui.GUIAgenda import GUIAgenda  # TIME
+            from ann_tkinter.gui.GUIHorloge import GUIHorloge  # TIME
+            from ann_tkinter.gui.GUITache import GUITache  # TIME
 
             self.__guiAgenda = GUIAgenda(self.__gest)
             self.__guiHorloge = GUIHorloge(self.__gest)
@@ -74,9 +82,9 @@ class TkinterGuiManager(IGestGui):
                 """
 
         if conf.etatApi == 1:
-            from gui.GUITraducteur import GuiTraducteur  # API
-            from gui.GuiBrief import guiBrief  # API
-            from gui.GuiNews import GuiNews
+            from ann_tkinter.gui.GUITraducteur import GuiTraducteur  # API
+            from ann_tkinter.gui.GuiBrief import guiBrief  # API
+            from ann_tkinter.gui.GuiNews import GuiNews
 
             self.__guiTraducteur = GuiTraducteur(self.__gest)
             self.__guiBrief = guiBrief(self.__gest, self.__gest.getName())
@@ -130,7 +138,7 @@ class TkinterGuiManager(IGestGui):
                 """
 
         if conf.etatWork == 1:
-            from gui.GUIArreraWork import GUIWork  # WORK
+            from ann_tkinter.gui.GUIArreraWork import GUIWork  # WORK
 
             self.__guiWork = GUIWork(self.__gest)
 
@@ -152,10 +160,10 @@ class TkinterGuiManager(IGestGui):
                 """
 
         if conf.etatService == 1:
-            from gui.GUICalculatrice import GUICalculatrice  # SERVICE
-            from gui.GUIorthographe import GUIOrthographe  # SERVICE
-            from gui.GUILecture import GUILecture  # SERVICE
-            from gui.GUIMail import GUIMail  # SERVICE
+            from ann_tkinter.gui.GUICalculatrice import GUICalculatrice  # SERVICE
+            from ann_tkinter.gui.GUIorthographe import GUIOrthographe  # SERVICE
+            from ann_tkinter.gui.GUILecture import GUILecture  # SERVICE
+            from ann_tkinter.gui.GUIMail import GUIMail  # SERVICE
 
             self.__guiCalculatrice = GUICalculatrice(self.__gest)
             self.__guiOrthographe = GUIOrthographe(self.__gest)
@@ -194,7 +202,7 @@ class TkinterGuiManager(IGestGui):
                 """
 
         if conf.etatOpen == 1:
-            from gui.GUIArreraDownload import GUIArreraDownload  # OPEN
+            from ann_tkinter.gui.GUIArreraDownload import GUIArreraDownload  # OPEN
 
             self.__guiArreraDownload = GUIArreraDownload(self.__gest)
 
@@ -211,10 +219,10 @@ class TkinterGuiManager(IGestGui):
                 """
 
         if conf.etatCodehelp == 1:
-            from gui.codehelp.CHGithub import CHGithub
-            from gui.codehelp.CHLibrairy import CHLibrairy
-            from gui.codehelp.CHGitGestion import CHGitGestion
-            from gui.codehelp.CCHcolorSelector import CCHcolorSelector
+            from ann_tkinter.gui.codehelp.CHGithub import CHGithub
+            from ann_tkinter.gui.codehelp.CHLibrairy import CHLibrairy
+            from ann_tkinter.gui.codehelp.CHGitGestion import CHGitGestion
+            from ann_tkinter.gui.codehelp.CCHcolorSelector import CCHcolorSelector
 
             self.__guiColorSelector = CCHcolorSelector(self.__gest)
             self.__guiGithub = CHGithub(self.__gest)

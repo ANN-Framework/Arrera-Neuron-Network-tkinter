@@ -1,4 +1,4 @@
-from gui.GUIBaseTache import GUIBaseTache,gestionnaire,fncArreraTache
+from ann_tkinter.gui.GUIBaseTache import GUIBaseTache,gestionnaire
 
 
 class GUITache(GUIBaseTache):

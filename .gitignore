@@ -14,3 +14,9 @@ build/
 *.egg-info/
 .agents/
 .gemini/
+# Build & Packaging
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/

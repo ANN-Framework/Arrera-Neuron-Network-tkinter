@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ann-tkinter"
+version = "4.0.0"
+description = "Composants graphiques Tkinter / CustomTkinter pour Arrera Neuron Network"
+readme = "README.md"
+requires-python = ">=3.14"
+authors = [
+    { name = "Arrera Software" }
+]
+dependencies = [
+    "ann-core @ git+https://github.com/ANN-Framework/Arrera-Neuron-Network-Core.git@version4.0",
+    "arrera-tk>=3.0.0",
+    "customtkinter",
+    "pillow"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ann_tkinter*"]
+exclude = ["src*", "test*"]
+
+[tool.setuptools.package-data]
+"ann_tkinter" = [
+    "asset/*.png",
+    "asset/*.ico",
+    "asset/**/*.png",
+    "asset/**/*.json",
+    "asset/**/*.mp3"
+]
