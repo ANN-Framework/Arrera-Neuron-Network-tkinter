@@ -1,6 +1,5 @@
 import os
 from arrera_tk import aLabelImage
-
 from ann_tkinter.gui.guibase import *
 import threading as th
 import datetime
